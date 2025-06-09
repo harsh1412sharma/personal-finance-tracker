@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Personal Finance Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>📊 Personal Finance Tracker</h1>
+    </div>
+
+    <div class="month-selector">
+      <label for="month">Select Month:</label>
+      <select id="month">
+        <option value="01">January</option><option value="02">February</option>
+        <option value="03">March</option><option value="04">April</option>
+        <option value="05">May</option><option value="06">June</option>
+        <option value="07">July</option><option value="08">August</option>
+        <option value="09">September</option><option value="10">October</option>
+        <option value="11">November</option><option value="12">December</option>
+      </select>
+    </div>
+
+    <div class="type-toggle">
+      <button id="add-income" class="active">➕ Add Income</button>
+      <button id="add-expense">➖ Add Expense</button>
+    </div>
+
+    <form id="transaction-form">
+      <input type="text" id="description" placeholder="Description" required />
+      <input type="number" id="amount" placeholder="Amount" required />
+      <input type="date" id="date" required />
+      <button type="submit">Add Transaction</button>
+    </form>
+
+    <div class="summary">
+      <h3>Total Income: ₹<span id="income-total">0</span></h3>
+      <h3>Total Expense: ₹<span id="expense-total">0</span></h3>
+      <h3>Net Balance: ₹<span id="net-balance">0</span></h3>
+    </div>
+
+    <div class="export-button">
+      <button id="export-pdf">📄 Export Transactions to PDF</button>
+    </div>
+
+    <div class="split-layout">
+      <div class="column">
+        <h2>Income</h2>
+        <ul id="income-list"></ul>
+      </div>
+      <div class="column">
+        <h2>Expenses</h2>
+        <ul id="expense-list"></ul>
+      </div>
+    </div>
+
+    <h3>📈 Expense Breakdown</h3>
+    <canvas id="chart" width="400" height="200"></canvas>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
