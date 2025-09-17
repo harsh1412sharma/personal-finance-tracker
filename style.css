@@ -150,11 +150,6 @@ li .actions button {
   font-size: 16px;
 }
 
-canvas {
-  margin-top: 20px;
-  max-width: 100%;
-}
-
 @media (max-width: 768px) {
   .split-layout {
     flex-direction: column;
@@ -171,9 +166,5 @@ canvas {
 
   form input, form button {
     width: 100%;
-  }
-
-  canvas {
-    width: 100% !important;
   }
 }

@@ -1,4 +1,4 @@
-// Previous working JavaScript code
+// Previous working JavaScript code (chart removed)
 
 const form = document.getElementById("transaction-form");
 const descriptionInput = document.getElementById("description");
@@ -68,7 +68,7 @@ function saveAndRender() {
   localStorage.setItem("transactions", JSON.stringify(transactions));
   renderTransactions();
   updateSummary();
-  updateChart();
+  // removed updateChart();
 }
 
 function renderTransactions() {
@@ -130,37 +130,11 @@ function updateSummary() {
   netBalanceDisplay.textContent = (income + expense).toFixed(2);
 }
 
-let pieChart;
-function updateChart() {
-  const ctx = document.getElementById("chart").getContext("2d");
-  const month = monthSelector.value;
-  const filtered = transactions.filter(tx => tx.amount < 0 && tx.date && tx.date.split("-")[1] === month);
-
-  const categoryTotals = {};
-  filtered.forEach(tx => {
-    const category = tx.description.split(" ")[0];
-    categoryTotals[category] = (categoryTotals[category] || 0) + Math.abs(tx.amount);
-  });
-
-  const labels = Object.keys(categoryTotals);
-  const data = Object.values(categoryTotals);
-
-  if (pieChart) pieChart.destroy();
-
-  pieChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels,
-      datasets: [{
-        data,
-        backgroundColor: ['#ff7675', '#74b9ff', '#ffeaa7', '#55efc4', '#a29bfe']
-      }]
-    }
-  });
-}
+// Removed pieChart and updateChart()
 
 monthSelector.addEventListener("change", saveAndRender);
 saveAndRender();
+
 document.getElementById("export-pdf").addEventListener("click", () => {
   const stored = JSON.parse(localStorage.getItem("transactions")) || [];
   if (!stored.length) return alert("No transactions to export!");
@@ -169,14 +143,12 @@ document.getElementById("export-pdf").addEventListener("click", () => {
   const filtered = stored.filter(tr => new Date(tr.date).getMonth() + 1 === +selectedMonth);
 
   const rows = filtered.map((tr, index) => [
-  index + 1,
-  tr.date,
-  tr.description,
-  Number(tr.amount).toLocaleString(),
-  tr.amount >= 0 ? "Income" : "Expense"
-]);
-
-
+    index + 1,
+    tr.date,
+    tr.description,
+    Number(tr.amount).toLocaleString(),
+    tr.amount >= 0 ? "Income" : "Expense"
+  ]);
 
   const { jsPDF } = window.jspdf;
   const doc = new jsPDF();
@@ -190,4 +162,3 @@ document.getElementById("export-pdf").addEventListener("click", () => {
 
   doc.save(`Finance_Transactions_${selectedMonth}.pdf`);
 });
-
